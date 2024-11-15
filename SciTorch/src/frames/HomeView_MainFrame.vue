@@ -1,9 +1,10 @@
 <script>
+
 export default {
   data() {
     return {
       windowWidth: window.innerWidth,
-      Categorys: [
+      Categories: [
         {
           Name: "History",
           Followers: "10.4 M",
@@ -123,8 +124,135 @@ export default {
               Papers: "34.6 K",
             },
           ]
+        }, {
+          Name: "History",
+          Followers: "10.4 M",
+          Papers: "816 K",
+          Authors: "351 K",
+          SubCategory: [
+            {
+              Name: "Medieval History",
+              Papers: "92.5 K",
+            },
+            {
+              Name: "Ancient History",
+              Papers: "87.7 K",
+            },
+            {
+              Name: "Cultural History",
+              Papers: "60 K",
+            },
+            {
+              Name: "Early Modern History",
+              Papers: "49.1 K",
+            },
+            {
+              Name: "Urban History",
+              Papers: "25.7 K",
+            },
+            {
+              Name: "Roman History",
+              Papers: "35.2 K",
+            },
+            {
+              Name: "Ancient Greek History",
+              Papers: "26.7 K",
+            },
+            {
+              Name: "Military History",
+              Papers: "34.6 K",
+            },
+          ]
+        },
+        {
+          Name: "Engineering",
+          Followers: "10.4 M",
+          Papers: "816 K",
+          Authors: "351 K",
+          SubCategory: [
+            {
+              Name: "Medieval History",
+              Papers: "92.5 K",
+            },
+            {
+              Name: "Ancient History",
+              Papers: "87.7 K",
+            },
+            {
+              Name: "Cultural History",
+              Papers: "60 K",
+            },
+            {
+              Name: "Early Modern History",
+              Papers: "49.1 K",
+            },
+            {
+              Name: "Urban History",
+              Papers: "25.7 K",
+            },
+            {
+              Name: "Roman History",
+              Papers: "35.2 K",
+            },
+            {
+              Name: "Ancient Greek History",
+              Papers: "26.7 K",
+            },
+            {
+              Name: "Military History",
+              Papers: "34.6 K",
+            },
+          ]
+        },
+        {
+          Name: "Computer Science",
+          Followers: "10.4 M",
+          Papers: "816 K",
+          Authors: "351 K",
+          SubCategory: [
+            {
+              Name: "Medieval History",
+              Papers: "92.5 K",
+            },
+            {
+              Name: "Ancient History",
+              Papers: "87.7 K",
+            },
+            {
+              Name: "Cultural History",
+              Papers: "60 K",
+            },
+            {
+              Name: "Early Modern History",
+              Papers: "49.1 K",
+            },
+            {
+              Name: "Urban History",
+              Papers: "25.7 K",
+            },
+            {
+              Name: "Roman History",
+              Papers: "35.2 K",
+            },
+            {
+              Name: "Ancient Greek History",
+              Papers: "26.7 K",
+            },
+            {
+              Name: "Military History",
+              Papers: "34.6 K",
+            },
+          ]
         }
-      ]
+      ],
+      webInfo: {
+        totalPDFNumber: "55 million",
+        registeredUser: "270m+",
+        uploadedPapers: "55m+",
+        dailyRecommendations: "20m",
+      },
+      showingMoreField: false,
+      showLimit: 3,
     };
   },
   computed: {
@@ -136,6 +264,9 @@ export default {
       } else {
         return "Phone";
       }
+    },
+    visibleCategories() {
+      return this.showingMoreField ? this.Categories : this.Categories.slice(0, this.showLimit);
     }
   },
   mounted() {
@@ -148,8 +279,12 @@ export default {
     handleResize() {
       this.windowWidth = window.innerWidth;
     },
+    showMoreFields() {
+      this.showingMoreField = !this.showingMoreField;
+    }
   },
 };
+
 </script>
 
 <template>
@@ -158,8 +293,8 @@ export default {
       <div class="flex flex-row w-[90%] mx-auto h-[500px] pl-10">
         <div class="w-[300px] h-full mr-6">
           <div class="w-full h-full relative">
-            <div class="big_text use_font m-auto top-20">
-              Download 55 million PDFs for free
+            <div class="big_text use_font m-auto top-20 cursor-default">
+              Download {{ webInfo.totalPDFNumber }} PDFs for free
             </div>
           </div>
         </div>
@@ -172,7 +307,7 @@ export default {
               </div>
               <div class="flex-1"></div>
               <div class="text-black text-xl font-bold my-auto">
-                270m+
+                {{ webInfo.registeredUser }}
               </div>
             </div>
             <div class="flex flex-row w-full my-5">
@@ -182,7 +317,7 @@ export default {
               </div>
               <div class="flex-1"></div>
               <div class="text-black text-xl font-bold my-auto">
-                55m+
+                {{ webInfo.uploadedPapers }}
               </div>
             </div>
             <div class="flex flex-row w-full my-5">
@@ -192,7 +327,7 @@ export default {
               </div>
               <div class="flex-1"></div>
               <div class="text-black text-xl font-bold my-auto">
-                20m
+                {{ webInfo.dailyRecommendations }}
               </div>
             </div>
           </div>
@@ -202,18 +337,18 @@ export default {
     <div class="w-full flex">
       <div class="w-[90%] mx-auto px-10">
         <div class="flex flex-row mt-6 mb-6 w-full mx-auto">
-          <div class="text-2xl use_font font-bold">
+          <div class="text-3xl use_font">
             Explore our top research interests
           </div>
           <div class="flex-1"></div>
-          <div class="text-sm font-bold text-blue-800 hover:underline hover:text-blue-900">
+          <div class="text-m font-bold mr-4 text-blue-800 cursor-pointer hover:underline hover:text-blue-900">
             Browse All Topics
           </div>
         </div>
         <div class="my-6 w-full mx-auto rounded-md border h-60 flex flex-row gold_background"
-             v-for="(Category,index) in Categorys" :key="index">
+             v-for="(Category,index) in visibleCategories" :key="index">
           <div class="w-[500px] pl-8 my-auto">
-            <div class="text-3xl use_font font-bold hover:underline">
+            <div class="text-4xl use_font cursor-pointer hover:underline ml-[-5px]">
               {{ Category.Name }}
             </div>
             <div class="text-md flex mt-6">
@@ -226,7 +361,7 @@ export default {
                 </div>
               </div>
               <div class="mr-5">
-                <div class="font-bold tracking-wide">
+                <div class="font-bold tracking-wide text-center">
                   {{ Category.Papers }}
                 </div>
                 <div>
@@ -234,7 +369,7 @@ export default {
                 </div>
               </div>
               <div>
-                <div class="font-bold tracking-wide">
+                <div class="font-bold tracking-wide text-center">
                   {{ Category.Authors }}
                 </div>
                 <div>
@@ -243,28 +378,39 @@ export default {
               </div>
             </div>
           </div>
-          <div class="my-auto flex flex-wrap w-full text-sm">
-            <div class="w-1/2 flex text-blue-800 hover:text-blue-900 hover:underline my-3 px-6" style="font-weight: 600"
+          <div class="my-auto flex flex-wrap w-full text-md">
+            <div class="w-1/2 flex text-blue-800 cursor-pointer hover:text-blue-900 hover:underline my-3 px-6"
+                 style="font-weight: 600"
                  v-for="(Sub,SubIndex) in Category.SubCategory" :key="SubIndex">
               <div>
                 {{ Sub.Name }}
               </div>
-              <div class="flex-1"></div>
+              <div class="flex-1">
+
+              </div>
               <div>
                 {{ Sub.Papers }} Papers
               </div>
             </div>
           </div>
         </div>
-        <div class="w-full text-3xl use_font text-center mb-6 mt-16 font-bold">
+        <div class="w-full flex mt-6">
+          <div @click="showMoreFields"
+               class="w-48 h-[44px] flex m-auto bg-[#0645B1] text-white hover:bg-[#ff6300] hover:text-white transition-all duration-300 hover:border-none hover:cursor-pointer">
+            <div class="m-auto text-xl font-medium">
+              {{ showingMoreField ? "Show Less" : "Show More" }}
+            </div>
+          </div>
+        </div>
+        <div class="w-full text-4xl use_font text-center mb-12 mt-16 ">
           Join 276 million academics and researchers
         </div>
         <div class="w-full flex">
           <div class="mx-auto flex flex-row">
-            <div class="mx-2 h-[360px] bg-[#2B3654] w-96 rounded-xl text-white">
+            <div class="mx-2 h-auto pb-6 bg-[#2B3654] min-w-72 w-1/3 rounded-xl text-white">
               <div class="w-full h-[45%] flex">
                 <img src="https://a.academia-assets.com/images/landing/track-impact.svg" alt="fluctuate"
-                     class="h-16 m-auto">
+                     class="h-20 m-auto">
               </div>
               <div class="w-full text-center font-semibold mb-3" style="font-size: 33px;line-height: 37px;">
                 Track your impact
@@ -273,17 +419,20 @@ export default {
                 Share your work with other academics, grow your audience and track your impact on your field with our
                 robust analytics
               </div>
-              <div class="w-full text-center flex">
-                <div class="mx-auto flex mt-6 hover:underline">
-                  Track your impact
-                  <img src="https://a.academia-assets.com/images/landing/icon-right-arrow.svg" alt="arrow" class="ml-1">
+              <div class="w-full justify-center flex">
+                <div class="mb-32">
+                  <div class="mx-auto flex mt-6 cursor-pointer hover:underline">
+                    Track your impact
+                    <img src="https://a.academia-assets.com/images/landing/icon-right-arrow.svg" alt="arrow"
+                         class="ml-1">
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="mx-2 h-[360px] bg-[#2B3654] w-96 rounded-xl text-white">
+            <div class="mx-2 h-auto pb-6 bg-[#2B3654] min-w-72 w-1/3 w-1/3 rounded-xl text-white">
               <div class="w-full h-[45%] flex">
                 <img src="https://a.academia-assets.com/images/landing/discover-research.svg" alt="fluctuate"
-                     class="h-16 m-auto">
+                     class="h-20 m-auto">
               </div>
               <div class="w-full text-center font-semibold mb-3" style="font-size: 33px;line-height: 37px;">
                 Discover new research
@@ -291,17 +440,18 @@ export default {
               <div class="w-full px-5 text-center">
                 Get access to millions of research papers and stay informed with the important topics around the world
               </div>
-              <div class="w-full text-center flex">
-                <div class="mx-auto flex mt-6 hover:underline">
-                  Discover new research
-                  <img src="https://a.academia-assets.com/images/landing/icon-right-arrow.svg" alt="arrow" class="ml-1">
-                </div>
+              <div class="w-full justify-center flex">
+                  <div class="mx-auto flex mt-6 cursor-pointer hover:underline mb-32">
+                    Discover new research
+                    <img src="https://a.academia-assets.com/images/landing/icon-right-arrow.svg" alt="arrow"
+                         class="ml-1">
+                  </div>
               </div>
             </div>
-            <div class="mx-2 h-[360px] bg-[#2B3654] w-96 rounded-xl text-white">
+            <div class="mx-2 h-auto pb-6 bg-[#2B3654] min-w-72 w-1/3 w-1/3 rounded-xl text-white">
               <div class="w-full h-[45%] flex">
                 <img src="https://a.academia-assets.com/images/landing/publish-work.svg" alt="fluctuate"
-                     class="h-16 m-auto">
+                     class="h-20 m-auto">
               </div>
               <div class="w-full text-center font-semibold mb-3" style="font-size: 33px;line-height: 37px;">
                 Publish your work
@@ -311,22 +461,25 @@ export default {
                 worldwide
                 dissemination of your work
               </div>
-              <div class="w-full text-center flex">
-                <div class="mx-auto flex mt-6 hover:underline">
-                  Publish your work
-                  <img src="https://a.academia-assets.com/images/landing/icon-right-arrow.svg" alt="arrow" class="ml-1">
+              <div class="w-full justify-center flex">
+                <div class="mb-32">
+                  <div class="mx-auto flex mt-6 cursor-pointer hover:underline">
+                    Publish your work
+                    <img src="https://a.academia-assets.com/images/landing/icon-right-arrow.svg" alt="arrow"
+                         class="ml-1">
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="mt-16 w-full text-center text-3xl use_font font-bold">
+        <div class="mt-16 w-full text-center text-4xl use_font">
           Unlock your imagination with SciTorch !
         </div>
         <div class="w-full flex mt-6">
           <div
-            class="w-52 h-[44px] flex m-auto bg-[#0645B1] text-white hover:bg-[#ff6300] hover:text-white transition-all duration-300 hover:border-none hover:cursor-pointer">
-            <div class="m-auto text-lg font-light">
+              class="w-52 h-[44px] flex m-auto bg-[#0645B1] text-white hover:bg-[#ff6300] hover:text-white transition-all duration-300 hover:border-none hover:cursor-pointer">
+            <div class="m-auto text-xl font-normal">
               Sign in
             </div>
           </div>
@@ -334,13 +487,13 @@ export default {
         <div class="w-full flex mt-16">
           <div class="mx-auto flex flex-row text-white">
             <div class="flex flex-col">
-              <div class="h-1/3 flex">
-                <div class="m-auto text-3xl use_font text-black text-center font-bold">
+              <div class="h-1/5 flex">
+                <div class="m-auto text-4xl use_font text-black text-center">
                   <div>Real stories from</div>
                   <div>real people</div>
                 </div>
               </div>
-              <div class="w-[360px] h-[574px] bg-[#2B3654] mx-3 rounded-xl">
+              <div class="w-[360px] h-auto pb-8 bg-[#2B3654] mx-3 rounded-xl">
                 <div class="text-center text-sm mb-4 mt-8">
                   RESEARCHER
                 </div>
@@ -370,9 +523,9 @@ export default {
                 </div>
               </div>
             </div>
-            <div class="flex flex-col mx-3">
+            <div class="flex flex-col mx-12">
               <div class="flex flex-col">
-                <div class="w-[360px] h-[522px] bg-[#2B3654] rounded-xl">
+                <div class="w-[360px] h-auto pb-8 bg-[#2B3654] rounded-xl">
                   <div class="text-center text-sm mb-4 mt-6">
                     RESEARCHER
                   </div>
@@ -398,7 +551,7 @@ export default {
                   </div>
                 </div>
               </div>
-              <div class="w-[360px] h-[450px] bg-[#2B3654] mt-6 rounded-xl">
+              <div class="w-[360px] h-auto pb-8 bg-[#2B3654] mt-6 rounded-xl">
                 <div class="text-center text-sm mb-4 mt-8">
                   RESEARCHER
                 </div>
@@ -422,7 +575,7 @@ export default {
               </div>
             </div>
             <div class="flex flex-col mx-3">
-              <div class="w-[360px] h-[450px] bg-[#2B3654] rounded-xl">
+              <div class="w-[360px] h-auto pb-8 bg-[#2B3654] rounded-xl">
                 <div class="text-center text-sm mb-4 mt-8">
                   RESEARCHER
                 </div>
@@ -444,7 +597,7 @@ export default {
                   </div>
                 </div>
               </div>
-              <div class="w-[360px] h-[526px] bg-[#2B3654] mt-6 rounded-xl">
+              <div class="w-[360px] h-auto pb-8 bg-[#2B3654] mt-6 rounded-xl">
                 <div class="text-center text-sm mb-4 mt-8">
                   RESEARCHER
                 </div>
@@ -472,7 +625,7 @@ export default {
             </div>
           </div>
         </div>
-        <div class="text-3xl font-bold text-center w-full use_font mt-16">
+        <div class="text-5xl text-center w-full use_font mt-16">
           Contains Papers from over 15,000 universities
         </div>
         <div class="w-full mb-10">
@@ -485,7 +638,7 @@ export default {
             <div class="w-4/5 min-w-[1200px] flex h-[315px] mx-auto" style="background: #f9f7f4;">
               <img class="h-full aspect-auto" src="/Church_Image.png" alt="教堂">
               <div class="flex m-auto flex-wrap">
-                <div class="text-4xl font-bold use_font px-16 w-full text-center" style="line-height:44px">
+                <div class="text-4xl font-normal use_font px-16 w-full text-center" style="line-height:44px">
                   Get started and find the best quality research in SciTorch
                 </div>
               </div>
@@ -544,18 +697,18 @@ export default {
     <div class="w-full flex">
       <div class="w-full mx-auto px-3">
         <div class="flex flex-row mt-6 mb-6 w-full mx-auto px-8">
-          <div class="text-2xl use_font font-bold">
+          <div class="text-3xl use_font">
             Explore our top research interests
           </div>
           <div class="flex-1"></div>
-          <div class="text-sm font-bold text-blue-800 hover:underline hover:text-blue-900">
+          <div class="text-m mr-4 font-bold text-blue-800 cursor-pointer hover:underline hover:text-blue-900">
             Browse All Topics
           </div>
         </div>
         <div class="my-6 w-full mx-auto rounded-md border flex flex-row gold_background"
-             v-for="(Category,index) in Categorys" :key="index">
+             v-for="(Category,index) in Categories" :key="index">
           <div class="w-[500px] pl-8 my-auto">
-            <div class="text-3xl use_font font-bold hover:underline">
+            <div class="text-4xl use_font cursor-pointer hover:underline ml-[-5px]">
               {{ Category.Name }}
             </div>
             <div class="text-md flex mt-6">
@@ -568,7 +721,7 @@ export default {
                 </div>
               </div>
               <div class="mr-5">
-                <div class="font-bold tracking-wide">
+                <div class="font-bold tracking-wide text-center">
                   {{ Category.Papers }}
                 </div>
                 <div>
@@ -576,7 +729,7 @@ export default {
                 </div>
               </div>
               <div>
-                <div class="font-bold tracking-wide">
+                <div class="font-bold tracking-wide text-center">
                   {{ Category.Authors }}
                 </div>
                 <div>
@@ -585,8 +738,8 @@ export default {
               </div>
             </div>
           </div>
-          <div class="my-auto flex flex-wrap w-full text-sm">
-            <div class="w-full flex text-blue-800 hover:text-blue-900 hover:underline my-3 px-6"
+          <div class="my-auto flex flex-wrap w-full text-md">
+            <div class="w-full flex text-blue-800 hover:text-blue-900 cursor-pointer hover:underline my-3 px-6"
                  style="font-weight: 600"
                  v-for="(Sub,SubIndex) in Category.SubCategory" :key="SubIndex">
               <div>
@@ -599,54 +752,68 @@ export default {
             </div>
           </div>
         </div>
-        <div class="w-full text-3xl use_font text-center mb-6 mt-16 font-bold">
+        <div class="w-full flex mt-6">
+          <div
+              class="w-48 h-[44px] flex m-auto bg-[#0645B1] text-white hover:bg-[#ff6300] hover:text-white transition-all duration-300 hover:border-none hover:cursor-pointer">
+            <div class="m-auto text-xl font-medium">
+              {{ showingMoreField ? "Show Less" : "Show More" }}
+            </div>
+          </div>
+        </div>
+        <div class="w-full text-4xl use_font text-center mb-6 mt-16">
           Join 276 million academics and researchers
         </div>
-        <div class="w-full flex px-10 flex-row">
+        <div class="w-full flex">
           <div class="mx-auto flex flex-row">
-            <div class="mx-2 w-1/3 bg-[#2B3654] rounded-xl text-white">
+            <div class="mx-2 h-auto pb-6 bg-[#2B3654] min-w-72 w-1/3 rounded-xl text-white">
               <div class="w-full h-[45%] flex">
                 <img src="https://a.academia-assets.com/images/landing/track-impact.svg" alt="fluctuate"
-                     class="h-16 m-auto">
+                     class="h-20 m-auto">
               </div>
-              <div class="w-full text-center font-semibold mb-3 px-2" style="font-size: 33px;line-height: 37px;">
+              <div class="w-full text-center font-semibold mb-3" style="font-size: 33px;line-height: 37px;">
                 Track your impact
               </div>
               <div class="w-full px-5 text-center">
                 Share your work with other academics, grow your audience and track your impact on your field with our
                 robust analytics
               </div>
-              <div class="w-full text-center flex">
-                <div class="mx-auto flex mt-6 hover:underline">
-                  Track your impact
-                  <img src="https://a.academia-assets.com/images/landing/icon-right-arrow.svg" alt="arrow" class="ml-1">
+              <div class="w-full justify-center flex">
+                <div class="mb-32">
+                  <div class="mx-auto flex mt-6 cursor-pointer hover:underline">
+                    Track your impact
+                    <img src="https://a.academia-assets.com/images/landing/icon-right-arrow.svg" alt="arrow"
+                         class="ml-1">
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="mx-2 w-1/3 bg-[#2B3654]  rounded-xl text-white">
+            <div class="mx-2 h-auto pb-6 bg-[#2B3654] min-w-72 w-1/3 w-1/3 rounded-xl text-white">
               <div class="w-full h-[45%] flex">
                 <img src="https://a.academia-assets.com/images/landing/discover-research.svg" alt="fluctuate"
-                     class="h-16 m-auto">
+                     class="h-20 m-auto">
               </div>
-              <div class="w-full text-center font-semibold mb-3 px-2" style="font-size: 33px;line-height: 37px;">
+              <div class="w-full text-center font-semibold mb-3" style="font-size: 33px;line-height: 37px;">
                 Discover new research
               </div>
               <div class="w-full px-5 text-center">
                 Get access to millions of research papers and stay informed with the important topics around the world
               </div>
-              <div class="w-full text-center flex">
-                <div class="mx-auto flex mt-6 hover:underline">
-                  Discover new research
-                  <img src="https://a.academia-assets.com/images/landing/icon-right-arrow.svg" alt="arrow" class="ml-1">
+              <div class="w-full justify-center flex">
+                <div class="mb-32">
+                  <div class="mx-auto flex mt-6 cursor-pointer hover:underline">
+                    Discover new research
+                    <img src="https://a.academia-assets.com/images/landing/icon-right-arrow.svg" alt="arrow"
+                         class="ml-1">
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="mx-2 w-1/3 bg-[#2B3654] rounded-xl text-white">
+            <div class="mx-2 h-auto pb-6 bg-[#2B3654] min-w-72 w-1/3 w-1/3 rounded-xl text-white">
               <div class="w-full h-[45%] flex">
                 <img src="https://a.academia-assets.com/images/landing/publish-work.svg" alt="fluctuate"
-                     class="h-16 m-auto">
+                     class="h-20 m-auto">
               </div>
-              <div class="w-full text-center font-semibold mb-3 px-2" style="font-size: 33px;line-height: 37px;">
+              <div class="w-full text-center font-semibold mb-3" style="font-size: 33px;line-height: 37px;">
                 Publish your work
               </div>
               <div class="w-full px-5 text-center">
@@ -654,21 +821,24 @@ export default {
                 worldwide
                 dissemination of your work
               </div>
-              <div class="w-full text-center flex">
-                <div class="mx-auto flex mt-6 hover:underline">
-                  Publish your work
-                  <img src="https://a.academia-assets.com/images/landing/icon-right-arrow.svg" alt="arrow" class="ml-1">
+              <div class="w-full justify-center flex">
+                <div class="mb-32">
+                  <div class="mx-auto flex mt-6 cursor-pointer hover:underline">
+                    Publish your work
+                    <img src="https://a.academia-assets.com/images/landing/icon-right-arrow.svg" alt="arrow"
+                         class="ml-1">
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="mt-16 w-full text-center text-3xl use_font font-bold">
+        <div class="mt-16 w-full text-center text-4xl use_font">
           Unlock your imagination with SciTorch !
         </div>
         <div class="w-full flex mt-6">
           <div
-            class="w-52 h-[44px] flex m-auto bg-[#0645B1] text-white hover:bg-[#ff6300] hover:text-white transition-all duration-300 hover:border-none hover:cursor-pointer">
+              class="w-52 h-[44px] flex m-auto bg-[#0645B1] text-white hover:bg-[#ff6300] hover:text-white transition-all duration-300 hover:border-none hover:cursor-pointer">
             <div class="m-auto text-lg font-light">
               Sign in
             </div>
@@ -678,12 +848,12 @@ export default {
           <div class="mx-auto flex flex-row text-white">
             <div class="flex flex-col">
               <div class="h-1/3 flex">
-                <div class="m-auto text-3xl use_font text-black text-center font-bold">
+                <div class="m-auto text-4xl use_font text-black text-center">
                   <div>Real stories from</div>
                   <div>real people</div>
                 </div>
               </div>
-              <div class="w-[360px] h-[574px] bg-[#2B3654] mx-3 rounded-xl">
+              <div class="w-[360px] h-auto pb-8 bg-[#2B3654] mx-3 rounded-xl">
                 <div class="text-center text-sm mb-4 mt-8">
                   RESEARCHER
                 </div>
@@ -713,9 +883,9 @@ export default {
                 </div>
               </div>
             </div>
-            <div class="flex flex-col mx-3">
+            <div class="flex flex-col mx-12">
               <div class="flex flex-col">
-                <div class="w-[360px] h-[522px] bg-[#2B3654] rounded-xl">
+                <div class="w-[360px] h-auto pb-8 bg-[#2B3654] rounded-xl">
                   <div class="text-center text-sm mb-4 mt-6">
                     RESEARCHER
                   </div>
@@ -741,7 +911,7 @@ export default {
                   </div>
                 </div>
               </div>
-              <div class="w-[360px] h-[450px] bg-[#2B3654] mt-6 rounded-xl">
+              <div class="w-[360px] h-auto pb-8 bg-[#2B3654] mt-6 rounded-xl">
                 <div class="text-center text-sm mb-4 mt-8">
                   RESEARCHER
                 </div>
@@ -766,7 +936,7 @@ export default {
             </div>
           </div>
         </div>
-        <div class="text-3xl font-bold text-center w-full use_font mt-16">
+        <div class="text-5xl text-center w-full use_font mt-16">
           Contains Papers from over 15,000 universities
         </div>
         <div class="w-full mb-10">
@@ -830,18 +1000,18 @@ export default {
     <div class="w-full flex">
       <div class="w-full mx-auto px-3">
         <div class="flex flex-row mt-6 mb-6 w-full mx-auto px-8">
-          <div class="text-2xl use_font font-bold">
+          <div class="text-3xl use_font">
             Explore our top research interests
           </div>
           <div class="flex-1"></div>
-          <div class="text-sm font-bold text-blue-800 hover:underline hover:text-blue-900">
+          <div class="text-m mr-4 font-bold text-blue-800 cursor-pointer hover:underline hover:text-blue-900">
             Browse All Topics
           </div>
         </div>
         <div class="my-6 w-full mx-auto rounded-md border flex flex-col gold_background"
-             v-for="(Category,index) in Categorys" :key="index">
+             v-for="(Category,index) in Categories" :key="index">
           <div class="my-auto w-full">
-            <div class="text-3xl use_font font-bold hover:underline text-center w-full">
+            <div class="text-4xl use_font cursor-pointer hover:underline text-center w-full ml-[-5px]">
               {{ Category.Name }}
             </div>
             <div class="flex w-full">
@@ -855,7 +1025,7 @@ export default {
                   </div>
                 </div>
                 <div class="mr-5">
-                  <div class="font-bold tracking-wide text-center">
+                  <div class="font-bold tracking-wide text-center text-center">
                     {{ Category.Papers }}
                   </div>
                   <div>
@@ -863,7 +1033,7 @@ export default {
                   </div>
                 </div>
                 <div>
-                  <div class="font-bold tracking-wide text-center">
+                  <div class="font-bold tracking-wide text-center text-center">
                     {{ Category.Authors }}
                   </div>
                   <div>
@@ -873,8 +1043,8 @@ export default {
               </div>
             </div>
           </div>
-          <div class="my-auto flex flex-wrap w-full text-sm">
-            <div class="w-full flex text-blue-800 hover:text-blue-900 hover:underline my-3 px-6"
+          <div class="my-auto flex flex-wrap w-full text-md">
+            <div class="w-full flex text-blue-800 hover:text-blue-900 cursor-pointer hover:underline my-3 px-6"
                  style="font-weight: 600"
                  v-for="(Sub,SubIndex) in Category.SubCategory" :key="SubIndex">
               <div>
@@ -887,54 +1057,68 @@ export default {
             </div>
           </div>
         </div>
-        <div class="w-full text-3xl use_font text-center mb-6 mt-16 font-bold">
+        <div class="w-full flex mt-6">
+          <div
+              class="w-48 h-[44px] flex m-auto bg-[#0645B1] text-white hover:bg-[#ff6300] hover:text-white transition-all duration-300 hover:border-none hover:cursor-pointer">
+            <div class="m-auto text-xl font-medium">
+              {{ showingMoreField ? "Show Less" : "Show More" }}
+            </div>
+          </div>
+        </div>
+        <div class="w-full text-4xl use_font text-center mb-6 mt-16">
           Join 276 million academics and researchers
         </div>
-        <div class="w-full flex px-10 flex-row">
-          <div class="mx-auto flex flex-col">
-            <div class="mx-12 bg-[#2B3654] rounded-xl text-white my-3">
+        <div class="w-full flex">
+          <div class="mx-auto flex flex-row">
+            <div class="mx-2 h-auto pb-6 bg-[#2B3654] min-w-72 w-1/3 rounded-xl text-white">
               <div class="w-full h-[45%] flex">
                 <img src="https://a.academia-assets.com/images/landing/track-impact.svg" alt="fluctuate"
-                     class="h-16 m-auto">
+                     class="h-20 m-auto">
               </div>
-              <div class="w-full text-center font-semibold mb-3 px-2" style="font-size: 33px;line-height: 37px;">
+              <div class="w-full text-center font-semibold mb-3" style="font-size: 33px;line-height: 37px;">
                 Track your impact
               </div>
               <div class="w-full px-5 text-center">
                 Share your work with other academics, grow your audience and track your impact on your field with our
                 robust analytics
               </div>
-              <div class="w-full text-center flex">
-                <div class="mx-auto flex mt-6 hover:underline">
-                  Track your impact
-                  <img src="https://a.academia-assets.com/images/landing/icon-right-arrow.svg" alt="arrow" class="ml-1">
+              <div class="w-full justify-center flex">
+                <div class="mb-32">
+                  <div class="mx-auto flex mt-6 cursor-pointer hover:underline">
+                    Track your impact
+                    <img src="https://a.academia-assets.com/images/landing/icon-right-arrow.svg" alt="arrow"
+                         class="ml-1">
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="mx-12 bg-[#2B3654]  rounded-xl text-white my-3">
+            <div class="mx-2 h-auto pb-6 bg-[#2B3654] min-w-72 w-1/3 w-1/3 rounded-xl text-white">
               <div class="w-full h-[45%] flex">
                 <img src="https://a.academia-assets.com/images/landing/discover-research.svg" alt="fluctuate"
-                     class="h-16 m-auto">
+                     class="h-20 m-auto">
               </div>
-              <div class="w-full text-center font-semibold mb-3 px-2" style="font-size: 33px;line-height: 37px;">
+              <div class="w-full text-center font-semibold mb-3" style="font-size: 33px;line-height: 37px;">
                 Discover new research
               </div>
               <div class="w-full px-5 text-center">
                 Get access to millions of research papers and stay informed with the important topics around the world
               </div>
-              <div class="w-full text-center flex">
-                <div class="mx-auto flex mt-6 hover:underline">
-                  Discover new research
-                  <img src="https://a.academia-assets.com/images/landing/icon-right-arrow.svg" alt="arrow" class="ml-1">
+              <div class="w-full justify-center flex">
+                <div class="mb-32">
+                  <div class="mx-auto flex mt-6 cursor-pointer hover:underline">
+                    Discover new research
+                    <img src="https://a.academia-assets.com/images/landing/icon-right-arrow.svg" alt="arrow"
+                         class="ml-1">
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="mx-12 bg-[#2B3654] rounded-xl text-white my-3">
+            <div class="mx-2 h-auto pb-6 bg-[#2B3654] min-w-72 w-1/3 w-1/3 rounded-xl text-white">
               <div class="w-full h-[45%] flex">
                 <img src="https://a.academia-assets.com/images/landing/publish-work.svg" alt="fluctuate"
-                     class="h-16 m-auto">
+                     class="h-20 m-auto">
               </div>
-              <div class="w-full text-center font-semibold mb-3 px-2" style="font-size: 33px;line-height: 37px;">
+              <div class="w-full text-center font-semibold mb-3" style="font-size: 33px;line-height: 37px;">
                 Publish your work
               </div>
               <div class="w-full px-5 text-center">
@@ -942,21 +1126,24 @@ export default {
                 worldwide
                 dissemination of your work
               </div>
-              <div class="w-full text-center flex">
-                <div class="mx-auto flex mt-6 hover:underline">
-                  Publish your work
-                  <img src="https://a.academia-assets.com/images/landing/icon-right-arrow.svg" alt="arrow" class="ml-1">
+              <div class="w-full justify-center flex">
+                <div class="mb-32">
+                  <div class="mx-auto flex mt-6 cursor-pointer hover:underline">
+                    Publish your work
+                    <img src="https://a.academia-assets.com/images/landing/icon-right-arrow.svg" alt="arrow"
+                         class="ml-1">
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="mt-16 w-full text-center text-3xl use_font font-bold">
+        <div class="mt-16 w-full text-center text-4xl use_font">
           Unlock your imagination with SciTorch !
         </div>
         <div class="w-full flex mt-6">
           <div
-            class="w-52 h-[44px] flex m-auto bg-[#0645B1] text-white hover:bg-[#ff6300] hover:text-white transition-all duration-300 hover:border-none hover:cursor-pointer">
+              class="w-52 h-[44px] flex m-auto bg-[#0645B1] text-white hover:bg-[#ff6300] hover:text-white transition-all duration-300 hover:border-none hover:cursor-pointer">
             <div class="m-auto text-lg font-light">
               Sign in
             </div>
@@ -964,9 +1151,9 @@ export default {
         </div>
         <div class="w-full flex mt-16">
           <div class="mx-auto flex flex-row text-white">
-            <div class="flex flex-col mx-3">
+            <div class="flex flex-col mx-10">
               <div class="flex flex-col">
-                <div class="w-[360px] h-[522px] bg-[#2B3654] rounded-xl">
+                <div class="w-[360px] h-auto pb-8 bg-[#2B3654] rounded-xl">
                   <div class="text-center text-sm mb-4 mt-6">
                     RESEARCHER
                   </div>
@@ -992,7 +1179,7 @@ export default {
                   </div>
                 </div>
               </div>
-              <div class="w-[360px] h-[450px] bg-[#2B3654] mt-6 rounded-xl">
+              <div class="w-[360px] h-auto pb-8 bg-[#2B3654] mt-6 rounded-xl">
                 <div class="text-center text-sm mb-4 mt-8">
                   RESEARCHER
                 </div>
@@ -1017,7 +1204,7 @@ export default {
             </div>
           </div>
         </div>
-        <div class="text-3xl font-bold text-center w-full use_font mt-16">
+        <div class="text-5xl text-center w-full use_font mt-16">
           Contains Papers from over 15,000 universities
         </div>
         <div class="w-full mb-10">
@@ -1046,7 +1233,7 @@ export default {
 .big_text {
   font-size: 38px;
   line-height: 60px;
-  font-weight: 600;
+  font-weight: normal;
 }
 
 .top-20 {

@@ -100,7 +100,7 @@ export default {
             </div>
             <div
               class="w-24 h-[44px] flex m-auto bg-[#007398] text-white hover:bg-[#ff6300] hover:text-white transition-all duration-300 hover:border-none hover:cursor-pointer">
-              <div class="m-auto text-lg font-light">
+              <div class="m-auto text-lg font-bold">
                 Sign in
               </div>
             </div>
@@ -127,7 +127,7 @@ export default {
         <div class="mx-4 hover:text-[#ff6300] Head_List">
           Create account
         </div>
-        <div class="mx-4 hover:text-[#ff6300] Head_List">
+        <div class="mx-4 hover:text-[#ff6300] Head_List font-bold">
           Sign in
         </div>
       </div>

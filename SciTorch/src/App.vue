@@ -12,6 +12,6 @@ import test from "@/views/test.vue";
 
 <style>
 .use_font {
-  font-family: 'TsangerYuYangT_W03_W03',sans-serif;
+  font-family: "NexusSerif-Regular",sans-serif;
 }
 </style>

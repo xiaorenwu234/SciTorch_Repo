@@ -4,3 +4,11 @@
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+    font-family: "NexusSerif-Regular";
+    src: url('./Nexus/NexusSerifTF-Regular.otf');
+}
+@font-face {
+    font-family: "NexusSans-Regular";
+    src: url('./Nexus/NexusSans-Regular.otf');
+}
